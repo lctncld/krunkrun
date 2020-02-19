@@ -4,6 +4,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const token = process.env.KRUN_KRUN_TOKEN;
 
 const game = {
+  timeLimit: 1, // minutes
   inProgress: false,
   url: void 0
 };
@@ -38,19 +39,28 @@ const game = {
       const page = await browser.newPage();
 
       await hideFromBotDetector(page);
-      const url = await createGame(page);
-      game.url = '' + url;
+      game.url = await createGame(page);
       bot.sendMessage(chatId, game.url);
 
+      setTimeout(async () => {
+        bot.sendMessage(chatId, 'А теперь работать!');
+        await stopHost(browser)
+      }, (game.timeLimit + 1) * 1000 * 60);
+
       await page.waitForSelector('#instructions > span:nth-child(1)', {timeout: 0});
-      console.log('RIP game');
-      bot.sendMessage(chatId, 'Поиграли и хватит!');
-      await browser.close();
-      game.inProgress = false;
-      game.url = void 0;
+      console.log('RIP server');
+      bot.sendMessage(chatId, 'Сервер отвалился, расходимся');
+      await stopHost(browser);
     }
   });
 })();
+
+async function stopHost(browser) {
+  console.log('stop host');
+  await browser.close();
+  game.inProgress = false;
+  game.url = void 0;
+}
 
 async function hideFromBotDetector(page) {
   await page.evaluateOnNewDocument(() => {
