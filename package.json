@@ -1,0 +1,14 @@
+{
+  "name": "krunkrun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "app": "node index.js"
+  },
+  "author": "mr sloth",
+  "license": "WTFPL",
+  "dependencies": {
+    "puppeteer": "^2.1.1"
+  }
+}
