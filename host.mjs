@@ -99,6 +99,7 @@ async function stopGame() {
   console.group("[stopGame]");
   try {
     controller.setInProgress(false);
+    controller.setUrl(void 0);
     browser && browser.close();
     console.log('done');
   } catch (e) {
