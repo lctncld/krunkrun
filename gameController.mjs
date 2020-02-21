@@ -11,7 +11,6 @@ export default {
     return host.startGame();
   },
   waitEndGame: async () => {
-    console.group("[waitEndGame]");
     return host.waitEndGame();
   },
   stopGame: () => {
