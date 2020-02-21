@@ -41,7 +41,7 @@ let browser;
           bot.sendMessage(chatId, result);
 
         await stopGame();
-        bot.sendMessage(chatId, 'Игра закончена');
+        bot.sendMessage(chatId, 'Игра закончена.');
 
       }
     });
@@ -79,7 +79,7 @@ async function waitEndGame() {
     await page.waitFor(60000 * gameTime);
     await page.waitFor('#endTable', {timeout: 30000});
     const result = await page.evaluate(() => document.querySelector('#endTable').textContent);
-    console.log(result);
+    console.log('evaluate -> #endTable ', result);
     console.log('done');
     return result;
   } finally {
