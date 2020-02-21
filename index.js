@@ -16,7 +16,7 @@ let browser;
   try {
     const bot = new TelegramBot(token, {polling: true});
 // bot.on("polling_error", (msg) => console.log(msg));
-    bot.onText(/го/, async (message, match) => {
+    bot.onText(/^го/i, async (message, match) => {
       const chatId = message.chat.id;
 
       if (game.inProgress) {
