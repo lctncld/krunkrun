@@ -3,7 +3,7 @@ import host from './host';
 const state = {
   inProgress: false,
   url: void 0,
-  gameTime: process.env.GAME_TIME || 1
+  gameTime: process.env.GAME_TIME || 10
   // timeLimit: 1, // minutes
 };
 
