@@ -4,8 +4,8 @@ import puppeteer from 'puppeteer';
 let browser;
 
 async function startGame(attempts = 0) {
-
   ++attempts;
+  console.group(`[startGame] attempt ${attempts}`);
   controller.setInProgress(true);
 
   browser = await puppeteer.launch({

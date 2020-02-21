@@ -22,7 +22,7 @@ export default {
             bot.sendMessage(chatId, url);
           } else {
             bot.sendMessage(chatId, 'Не получилось создать игру. Попробуйте позже.');
-            throw new Error(`[startGame] doesn't return url`);
+            throw new Error(`[startGame] didn't return url`);
           }
 
           const result = await gameController.waitEndGame();
@@ -39,6 +39,6 @@ export default {
         await gameController.stopGame();
       }
     });
-    return Promise.resolve('bot created');
+    return Promise.resolve();
   }
 }
