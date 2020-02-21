@@ -46,7 +46,7 @@ let browser;
       }
     });
 
-    bot.onText(/стоп/, async (message, match) => {
+    bot.onText(/^стоп/i, async (message, match) => {
       const chatId = message.chat.id;
       await stopGame();
       bot.sendMessage(chatId, 'Сервер выключен');
