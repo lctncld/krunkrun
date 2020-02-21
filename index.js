@@ -35,31 +35,27 @@ let browser;
           bot.sendMessage(chatId, 'Не получилось создать игру. Попробуйте позже.');
            throw new Error(`[startGame] doesn't return url`);
         }
-        
+
         const result = await waitEndGame();
         if (!!result)
           bot.sendMessage(chatId, result);
 
-        await stopGame();
+        await shutdown();
         bot.sendMessage(chatId, 'Игра закончена.');
 
       }
     });
 
-    bot.onText(/стоп/, async (message, match) => {
-      const chatId = message.chat.id;
-      await stopGame();
-      bot.sendMessage(chatId, 'Сервер выключен');
-    });
-
   } catch (e) {
     console.error(e.message);
+  } finally {
+    await shutdown();
   }
   
 })();
 
-async function stopGame() {
-  console.group("[stopGame]");
+async function shutdown() {
+  console.group("[shutdown]");
   try {
     game.inProgress = false;
     browser && browser.close();
@@ -77,8 +73,9 @@ async function waitEndGame() {
     const page = (await browser.pages()).find(page => page.url() === game.url);
     console.log('...');
     await page.waitFor(60000 * gameTime);
-    await page.waitFor('#endTable', {timeout: 30000});
-    const result = await page.evaluate(() => document.querySelector('#endTable').textContent);
+    await page.waitFor(() => !!document.querySelector('#endTable').textContent);
+    const result = await page.$eval('#endTable', el => el.textContent);
+    await page.waitFor(10000);
     console.log('evaluate -> #endTable ', result);
     console.log('done');
     return result;
