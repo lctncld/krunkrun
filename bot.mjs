@@ -22,6 +22,7 @@ export default {
           console.error(e.message);
         } finally {
           await gameController.stopGame();
+          bot.sendMessage(chatId, 'Игра закончена.');
         }
       }
 
@@ -39,9 +40,6 @@ export default {
         if (!!result) {
           bot.sendMessage(chatId, result);
         }
-
-        await gameController.stopGame();
-        bot.sendMessage(chatId, 'Игра закончена.');
       }
     });
     return Promise.resolve();
