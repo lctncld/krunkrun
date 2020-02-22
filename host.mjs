@@ -118,7 +118,7 @@ async function waitEndGame() {
     await page.waitFor(60000 * state.gameTime);
     await page.waitFor(() => !!document.querySelector('#endTable').textContent);
     const result = await page.$eval('#endTable', el => el.innerHTML);
-    await page.waitFor(10000);
+    await page.waitFor(15000);
     console.log('evaluate -> #endTable ', result);
     console.log('done');
     return result;
