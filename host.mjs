@@ -92,7 +92,7 @@ async function createGame(page) {
     console.log(`---> ${url}`);
     return url;
   }
-  throw new Error('Error create game');
+  throw new Error(`Error create game: ${serverMessage}`);
 }
 
 async function stopGame() {
@@ -115,13 +115,26 @@ async function waitEndGame() {
     const state = controller.getState();
     const page = (await browser.pages()).find(page => page.url() === state.url);
     console.log('...');
-    await page.waitFor(60000 * state.gameTime);
+
+    const gameTime = 60000 * state.gameTime;
+    const error = await Promise.race([
+      page.waitFor(gameTime).then(() => false),
+      page.waitFor(() => {
+        const instructions = document.querySelector('#instructions').textContent;
+        return instructions.indexOf('DISCONNECTED') !== -1 ? instructions : false;
+      }, {timeout: gameTime})
+    ]);
+
+    if (!!error)
+      throw new Error(`Game interrupted! ${error}`);
+
     await page.waitFor(() => !!document.querySelector('#endTable').textContent);
     const result = await page.$eval('#endTable', el => el.innerHTML);
+    console.log('#endTable ', result);
     await page.waitFor(15000);
-    console.log('evaluate -> #endTable ', result);
     console.log('done');
     return result;
+
   } finally {
     console.groupEnd();
   }
