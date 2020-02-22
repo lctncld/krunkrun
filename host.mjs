@@ -22,7 +22,7 @@ async function startGame(attempt = 0) {
 
   browser.on('disconnected', () => {
     console.log('Puppeteer disconnected');
-    controller.setInProgress(false);
+    controller.resetState();
   });
 
   try {
@@ -98,8 +98,7 @@ async function createGame(page) {
 async function stopGame() {
   console.group("[stopGame]");
   try {
-    controller.setInProgress(false);
-    controller.setUrl(void 0);
+    controller.resetState();
     browser && browser.close();
     console.log('done');
   } catch (e) {

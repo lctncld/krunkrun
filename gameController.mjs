@@ -16,6 +16,10 @@ export default {
   stopGame: () => {
     return host.stopGame();
   },
+  resetState: () => {
+    state.inProgress = false;
+    state.url = void(0);
+  },
   getState: () => state,
   setInProgress: (inProgress) => {
     state.inProgress = inProgress;
