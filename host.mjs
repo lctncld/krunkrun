@@ -3,9 +3,9 @@ import puppeteer from 'puppeteer';
 
 let browser;
 
-async function startGame(attempts = 0) {
-  ++attempts;
-  console.group(`[startGame] attempt ${attempts}`);
+async function startGame(attempt = 0) {
+  ++attempt;
+  console.group(`[startGame] attempt ${attempt}`);
   controller.setInProgress(true);
 
   browser = await puppeteer.launch({
@@ -33,8 +33,8 @@ async function startGame(attempts = 0) {
     console.error(e.message);
     controller.setInProgress(false);
     await browser.close();
-    if (attempts < 5) {
-      return await startGame(attempts);
+    if (attempt < 5) {
+      return await startGame(attempt);
     }
   } finally {
     console.groupEnd();
@@ -117,7 +117,7 @@ async function waitEndGame() {
     console.log('...');
     await page.waitFor(60000 * state.gameTime);
     await page.waitFor(() => !!document.querySelector('#endTable').textContent);
-    const result = await page.$eval('#endTable', el => el.textContent);
+    const result = await page.$eval('#endTable', el => el.innerHTML);
     await page.waitFor(10000);
     console.log('evaluate -> #endTable ', result);
     console.log('done');
