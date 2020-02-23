@@ -57,7 +57,7 @@ async function createGame(page) {
   await page.goto('https://krunker.io/', {waitUntil: 'domcontentloaded'});
 
   console.log('wait for connecting...');
-  await page.waitFor(() => document.querySelector('#instructions').textContent.includes('CLICK TO PLAY'), {timeout: 60000});
+  await page.waitFor(() => document.querySelector('#instructions').textContent.includes('CLICK TO PLAY'), {timeout: 30000});
 
   console.log('call openHostWindow()');
   await page.evaluate(() => openHostWindow());
