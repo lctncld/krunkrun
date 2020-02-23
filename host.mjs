@@ -54,10 +54,10 @@ async function hideFromBotDetector(page) {
 
 async function createGame(page) {
   console.log('goto index');
-  await page.goto('https://krunker.io/', {waitUntil: 'networkidle2'});
+  await page.goto('https://krunker.io/', {waitUntil: 'domcontentloaded'});
 
-  console.log('wait for #menuBtnHost');
-  await page.waitFor('#menuBtnHost');
+  console.log('wait for connecting...');
+  await page.waitFor(() => document.querySelector('#instructions').textContent.includes('CLICK TO PLAY'), {timeout: 60000});
 
   console.log('call openHostWindow()');
   await page.evaluate(() => openHostWindow());
@@ -86,7 +86,7 @@ async function createGame(page) {
   const serverMessage = await page.$eval('#hostGameMsg', element => element.textContent);
   console.log('hostGameMsg ', serverMessage);
 
-  if (serverMessage.indexOf('Success') >= 0) {
+  if (serverMessage.includes('Success')) {
     const url = await page.url();
     controller.setUrl(url);
     console.log(`---> ${url}`);
@@ -120,13 +120,14 @@ async function waitEndGame() {
       page.waitFor(gameTime).then(() => false),
       page.waitFor(() => {
         const instructions = document.querySelector('#instructions').textContent;
-        return instructions.indexOf('DISCONNECTED') !== -1 ? instructions : false;
+        return instructions.includes('DISCONNECTED') ? instructions : false;
       }, {timeout: gameTime})
     ]);
 
     if (!!error)
       throw new Error(`Game interrupted! ${error}`);
 
+    console.log('Waiting game result...');
     await page.waitFor(() => !!document.querySelector('#endTable').textContent);
     const result = await page.$eval('#endTable', el => el.innerHTML);
     console.log('#endTable ', result);
