@@ -1,5 +1,6 @@
 import controller from './gameController';
 import puppeteer from 'puppeteer';
+const headless = !!process.env.HEADLESS;
 
 let browser;
 
@@ -9,7 +10,7 @@ async function startGame(attempt = 0) {
   controller.setInProgress(true);
 
   browser = await puppeteer.launch({
-    headless: false,
+    headless: headless,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',

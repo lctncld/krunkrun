@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "app": "node --experimental-specifier-resolution=node index.mjs"
+    "app": "node --experimental-specifier-resolution=node index.mjs",
+    "start": "npm run app"
   },
   "author": "mr sloth",
   "license": "WTFPL",

@@ -4,7 +4,7 @@ KRUNKER BOT SERVER
 It's app for auto start Krunker game server through telegram bot message.
 
 > Krunker - first person web shooter in web browser.
->[www.krunker.io](http://www.krunker.io)
+> [www.krunker.io](http://www.krunker.io)
 
 
 REQUIREMENTS
@@ -35,5 +35,19 @@ BOT COMMANDS
     "го" - start game
 
 
+HEROKU DEPLOY [GitHub]
+-----------
 
-The 406 Developer Team
+1. Login to[www.heroku.com](https://heroku.com/)
+2. New -> Create new app
+3. Deploy -> Deployment method = `GitHub` -> Connect to GitHub -> repo-name -> Connect
+4. Settings -> Buildpacks
+    * Add build pack -> `heroku/nodejs`
+    * Add build pack -> `https://buildpack-registry.s3.amazonaws.com/buildpacks/jontewks/puppeteer.tgz`
+5. Settings -> Config Vars - Reveal Config Vars
+    * Add `HEADLESS = 1` 
+    * Add `KRUN_KRUN_TOKEN = Your telegram token` 
+    * Add `GAME_TIME = 10` 
+
+
+The 406 Developers Team
