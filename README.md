@@ -11,6 +11,9 @@ REQUIREMENTS
 ------------
 
 NodeJs 12.x.x or higher
+    
+    curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
+    n lts
 
 
 INSTALLATION
@@ -21,10 +24,10 @@ INSTALLATION
 QUICK START
 -----------
 
-KRUN_KRUN_TOKEN="12345678:QWERTYUIOPASFDHJKLZXCVBNM" GAME_TIME="10" npm run app
+    KRUN_KRUN_TOKEN="12345678:QWERTYUIOPASFDHJKLZXCVBNM" GAME_TIME="10" npm run app
 
-    KRUN_KRUN_TOKEN - telegram bot token
-    GAME_TIME - Game time in minutes 
+KRUN_KRUN_TOKEN - telegram bot token
+GAME_TIME - Game time in minutes 
 
 BOT COMMANDS
 -----------
