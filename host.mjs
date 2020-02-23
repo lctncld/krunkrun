@@ -21,11 +21,6 @@ async function startGame(attempt = 0) {
     ]
   });
 
-  browser.on('disconnected', () => {
-    console.log('Puppeteer disconnected');
-    controller.resetState();
-  });
-
   try {
     const page = await browser.newPage();
     await hideFromBotDetector(page);
