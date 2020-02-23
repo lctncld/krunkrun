@@ -40,7 +40,9 @@ HEROKU DEPLOY [GitHub]
 
 1. Login to[www.heroku.com](https://heroku.com/)
 2. New -> Create new app
-3. Deploy -> Deployment method = `GitHub` -> Connect to GitHub -> repo-name -> Connect
+3. Deploy -> Deployment method = `GitHub`
+    * Connect to GitHub -> repo-name -> Connect
+    * Manual deploy -> Choose a branch to deploy
 4. Settings -> Buildpacks
     * Add build pack -> `heroku/nodejs`
     * Add build pack -> `https://buildpack-registry.s3.amazonaws.com/buildpacks/jontewks/puppeteer.tgz`
