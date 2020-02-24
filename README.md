@@ -38,6 +38,8 @@ BOT COMMANDS
 HEROKU DEPLOY [GitHub]
 -----------
 
+Web UI
+
 1. Login to[www.heroku.com](https://heroku.com/)
 2. New -> Create new app
 3. Deploy -> Deployment method = `GitHub`
@@ -50,6 +52,19 @@ HEROKU DEPLOY [GitHub]
     * Add `HEADLESS = 1` 
     * Add `KRUN_KRUN_TOKEN = Your telegram token` 
     * Add `GAME_TIME = 10` 
+
+Heroku CLI
+
+1. Install CLI -> `brew tap heroku/brew && brew install heroku`
+or [installer](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
+2. Add git remote
+    * [For a new app](https://devcenter.heroku.com/articles/git#for-a-new-heroku-app)
+    * [For an existing app](https://devcenter.heroku.com/articles/git#for-an-existing-heroku-app)
+4. Define config vars
+     * `heroku config:set HEADLESS = 1`
+     * `heroku config:set KRUN_KRUN_TOKEN = Your telegram token`
+     * `heroku config:set GAME_TIME = 10`
+3. [Deploy](https://devcenter.heroku.com/articles/git#deploying-code)
 
 
 The 406 Developers Team
