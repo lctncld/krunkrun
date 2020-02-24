@@ -47,7 +47,7 @@ Web UI
     * Manual deploy -> Choose a branch to deploy
 4. Settings -> Buildpacks
     * Add build pack -> `heroku/nodejs`
-    * Add build pack -> `https://buildpack-registry.s3.amazonaws.com/buildpacks/jontewks/puppeteer.tgz`
+    * Add build pack -> `https://github.com/jontewks/puppeteer-heroku-buildpack`
 5. Settings -> Config Vars - Reveal Config Vars
     * Add `HEADLESS = 1` 
     * Add `KRUN_KRUN_TOKEN = Your telegram token` 
@@ -60,6 +60,7 @@ or [installer](https://devcenter.heroku.com/articles/heroku-cli#download-and-ins
 2. Add git remote
     * [For a new app](https://devcenter.heroku.com/articles/git#for-a-new-heroku-app)
     * [For an existing app](https://devcenter.heroku.com/articles/git#for-an-existing-heroku-app)
+5. Add buildpack `heroku buildpacks:add https://github.com/jontewks/puppeteer-heroku-buildpack`
 4. Define config vars
      * `heroku config:set HEADLESS = 1`
      * `heroku config:set KRUN_KRUN_TOKEN = Your telegram token`
