@@ -126,10 +126,10 @@ async function waitEndGame() {
     if (!!error)
       throw new Error(`Game interrupted! ${error}`);
 
-    console.log('Waiting game result...');
-    await page.waitFor(() => !!document.querySelector('#endTable').textContent, {timeout: breakTime});
-    const result = await page.$eval('#endTable', el => el.innerHTML);
-    console.log('#endTable ', result);
+    // console.log('Waiting game result...');
+    // await page.waitFor(() => !!document.querySelector('#endTable').textContent, {timeout: breakTime});
+    // const result = await page.$eval('#endTable', el => el.innerHTML);
+    // console.log('#endTable ', result);
     await page.waitFor(breakTime);
     console.log('done');
     return result;
