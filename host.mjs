@@ -112,7 +112,9 @@ async function waitEndGame() {
     const page = (await browser.pages()).find(page => page.url() === state.url);
     console.log('...');
 
-    const gameTime = 60000 * state.gameTime;
+    const breakTime = 25000; // Max 25 sec
+    const gameCount = 2;
+    const gameTime = 60000 * state.gameTime * gameCount + breakTime;
     const error = await Promise.race([
       page.waitFor(gameTime).then(() => false),
       page.waitFor(() => {
@@ -125,10 +127,10 @@ async function waitEndGame() {
       throw new Error(`Game interrupted! ${error}`);
 
     console.log('Waiting game result...');
-    await page.waitFor(() => !!document.querySelector('#endTable').textContent);
+    await page.waitFor(() => !!document.querySelector('#endTable').textContent, {timeout: breakTime});
     const result = await page.$eval('#endTable', el => el.innerHTML);
     console.log('#endTable ', result);
-    await page.waitFor(15000);
+    await page.waitFor(breakTime);
     console.log('done');
     return result;
 
