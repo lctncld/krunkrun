@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "app": "node --experimental-specifier-resolution=node index.mjs"
+    "app": "node --experimental-modules --experimental-specifier-resolution=node index.mjs"
   },
   "author": "mr sloth",
   "license": "WTFPL",
   "dependencies": {
+    "express": "^4.17.1",
     "node-telegram-bot-api": "^0.40.0",
     "puppeteer": "^2.1.1"
+  },
+  "engines": {
+    "node": "12.16.1"
   }
 }

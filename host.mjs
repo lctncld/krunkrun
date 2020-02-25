@@ -1,5 +1,6 @@
 import controller from './gameController';
 import puppeteer from 'puppeteer';
+const headless = !!process.env.HEADLESS;
 
 let browser;
 
@@ -9,7 +10,7 @@ async function startGame(attempt = 0) {
   controller.setInProgress(true);
 
   browser = await puppeteer.launch({
-    headless: false,
+    headless: headless,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -17,6 +18,7 @@ async function startGame(attempt = 0) {
       '--window-position=0,0',
       '--ignore-certifcate-errors',
       '--ignore-certifcate-errors-spki-list',
+      '--ChromeOSMemoryPressureHandling=100'
     ]
   });
 
@@ -110,7 +112,9 @@ async function waitEndGame() {
     const page = (await browser.pages()).find(page => page.url() === state.url);
     console.log('...');
 
-    const gameTime = 60000 * state.gameTime;
+    const breakTime = 25000; // Max 25 sec
+    const gameCount = 2;
+    const gameTime = 60000 * state.gameTime * gameCount + breakTime;
     const error = await Promise.race([
       page.waitFor(gameTime).then(() => false),
       page.waitFor(() => {
@@ -122,11 +126,11 @@ async function waitEndGame() {
     if (!!error)
       throw new Error(`Game interrupted! ${error}`);
 
-    console.log('Waiting game result...');
-    await page.waitFor(() => !!document.querySelector('#endTable').textContent);
-    const result = await page.$eval('#endTable', el => el.innerHTML);
-    console.log('#endTable ', result);
-    await page.waitFor(15000);
+    // console.log('Waiting game result...');
+    // await page.waitFor(() => !!document.querySelector('#endTable').textContent, {timeout: breakTime});
+    // const result = await page.$eval('#endTable', el => el.innerHTML);
+    // console.log('#endTable ', result);
+    await page.waitFor(breakTime);
     console.log('done');
     return result;
 
