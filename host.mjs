@@ -18,6 +18,7 @@ async function startGame(attempt = 0) {
       '--window-position=0,0',
       '--ignore-certifcate-errors',
       '--ignore-certifcate-errors-spki-list',
+      '--ChromeOSMemoryPressureHandling=100'
     ]
   });
 
