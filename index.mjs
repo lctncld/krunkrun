@@ -1,17 +1,7 @@
 import bot from './bot';
-import express from 'express';
-
-const PORT = process.env.PORT || 3000;
+import httpServer from './httpServer';
 
 (async () => {
-  const app = express();
-
-  app.get('/', function (req, res) {
-    res.send('Krunkrun beta');
-  });
-
-  await app.listen(PORT);
-  console.log(`Krunkrun listening on port ${PORT}!`);
-
+  await httpServer.startServer();
   await bot.start();
 })();

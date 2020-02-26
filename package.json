@@ -9,7 +9,6 @@
   "author": "mr sloth",
   "license": "WTFPL",
   "dependencies": {
-    "express": "^4.17.1",
     "node-telegram-bot-api": "^0.40.0",
     "puppeteer": "^2.1.1"
   },
