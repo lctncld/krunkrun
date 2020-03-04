@@ -74,8 +74,7 @@ async function echoToGeoGuessr(page, text) {
         const [textarea, isChatActivated] = await Promise.all([
             page.waitFor('.DraftEditor-root', WAIT_DOM_OPTIONS),
             page.waitFor(() => {
-                // const chat = document.querySelector('[title^="GeoGuessr"]');
-                const chat = document.querySelector('[data-text-as-pseudo-element="Sergey Antonov"]');
+                const chat = document.querySelector('[title^="GeoGuessr"]');
                 chat && chat.click();
                 return !!document.querySelector('.DraftEditor-root');
              })
