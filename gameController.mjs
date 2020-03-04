@@ -1,4 +1,8 @@
 import host from './host';
+import EventEmitter from 'events';
+
+class GameEmitter extends EventEmitter {}
+const gameEmitter = new GameEmitter();
 
 const state = {
   inProgress: false,
@@ -26,6 +30,8 @@ export default {
   },
   setUrl: (url) => {
     state.url = url;
-  }
+    gameEmitter.emit('url', url);
+  },
+  getEmitter: () => gameEmitter
 }
 

@@ -5,25 +5,26 @@ const auth = process.env.SKYPE_AUTH;
 
 const WAIT_DOM_OPTIONS = {timeout: 120000, visible: true};
 
-let gameUrl = void(0);
+let currentGameUrl = void(0);
 
 async function start() {
-    console.log("Skype background working...");
+    console.log("Skype waiting game url...");
     if (!auth)
         throw new Error('process.env.SKYPE_AUTH required');
 
-    setInterval(async() => {
-        const {url} = controller.getState();
-        const isNewGameUrl = !!url && url !== gameUrl;
-        if (isNewGameUrl) {
-            console.group("{skype}");
-            gameUrl = url;
-            console.log(`----> ${url}`);
-            await sendMessage(url);
-            console.groupEnd();
-        }
-    }, 4000);
+    const gameEmitter = controller.getEmitter();
+    gameEmitter.on('url', onUrl);
 }
+
+async function onUrl(url) {
+    const isNewGameUrl = !!url && url !== currentGameUrl;
+    if (isNewGameUrl) {
+        currentGameUrl = url;
+        console.log(`----> ${url}`);
+        await sendMessage(url);
+    }
+}
+
 async function login(page) {
     console.group("[login]");
     try {
