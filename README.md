@@ -33,7 +33,11 @@ BOT COMMANDS
 -----------
 
     "го" - start game
+ 
+SKYPE SUPPORT
+-----------
 
+    SKYPE_AUTH=login/password
 
 HEROKU DEPLOY [GitHub]
 -----------
