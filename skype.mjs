@@ -78,7 +78,7 @@ async function echoToGeoGuessr(page, text) {
                 const chat = document.querySelector('[title^="GeoGuessr"]');
                 chat && chat.click();
                 return !!document.querySelector('.DraftEditor-root');
-             })
+             }, WAIT_DOM_OPTIONS)
         ]);
 
         console.log('textarea.click.type');
