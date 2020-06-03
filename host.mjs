@@ -1,5 +1,6 @@
 import controller from './gameController';
 import puppeteer from 'puppeteer';
+
 const headless = !!process.env.HEADLESS;
 
 let browser;
@@ -58,23 +59,23 @@ async function createGame(page) {
 
   console.log('call openHostWindow()');
   await page.evaluate(() => openHostWindow());
-  // await page.click('#menuBtnHost');
-
   const maps = {
-    littletown: '#menuWindow > div:nth-child(3) > label:nth-child(2) > div.hostMapName.blackShad'
+    littletown: '#gameMap1'
   };
   console.log('wait for game options');
   await page.waitFor(maps.littletown);
 
   console.log('select map and set game params');
-  await page.click(maps.littletown);
+  const mapSelectors = Object.values(maps);
+  await page.evaluate(selectors => selectors.map(
+      selector => document.querySelector(selector).checked = true
+  ), mapSelectors);
 
   await page.evaluate(() => document.querySelector('#customSmaxPlayers').value = 10);
   await page.evaluate(gameTime => document.querySelector('#customSgameTime').value = gameTime, controller.getState().gameTime);
   await page.evaluate(() => document.querySelector('#makePrivate').checked = true);
 
   console.log('create room');
-  // await page.click('#menuWindow > div:nth-child(5) > div:nth-child(16) > div:nth-child(44) > a');
   await page.evaluate(() => createPrivateRoom());
 
   console.log('wait for url change');
